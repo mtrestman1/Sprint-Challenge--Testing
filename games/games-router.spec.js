@@ -1,9 +1,13 @@
 const request = require('supertest');
 const server = require('../server');
 
+const db = require('../data/dbConfig')
+
 describe('server', () => {
     describe('GET', () => {
-
+        beforeEach(async () => {
+            await db('games').truncate();
+          });
         it('should return 200/OK', () => {
             return request(server)
             .get('/api/games')
